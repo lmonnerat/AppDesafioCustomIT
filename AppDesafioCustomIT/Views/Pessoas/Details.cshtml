@@ -22,6 +22,12 @@
             @Html.DisplayFor(model => model.DataNasc)
         </dd>
         <dt class="col-sm-2">
+            Idade
+        </dt>
+        <dd class="col-sm-10">
+            @Model.CalculaIdade().ToString()
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CPF)
         </dt>
         <dd class="col-sm-10">

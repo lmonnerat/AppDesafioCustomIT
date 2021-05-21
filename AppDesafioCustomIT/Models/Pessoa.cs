@@ -25,14 +25,11 @@ namespace AppDesafioCustomIT.Models
         public string Endereco { get; set; }
         public string Bairro { get; set; }        
         public string Cidade { get; set; }
-        public string UF { get; set; }
-        [Required(ErrorMessage = "{0} required")]
+        public string UF { get; set; }        
         [EmailAddress(ErrorMessage = "Entre com um e-mail válido")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public virtual ICollection<Telefone> Telefones { get; set; }
-
-        //public int Idade { get; set; }
 
         public int CalculaIdade()
         {
