@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AppDesafioCustomIT.Models
 {
@@ -20,15 +18,20 @@ namespace AppDesafioCustomIT.Models
 
         public DateTime DataNasc { get; set; }
         [Required]
+        [MaxLength(20)]
         public string CPF { get; set; }
         [Display(Name = "Endereço")]
+        [MaxLength(100)]
         public string Endereco { get; set; }
-        public string Bairro { get; set; }        
+        [MaxLength(60)]
+        public string Bairro { get; set; }
+        [MaxLength(60)]
         public string Cidade { get; set; }
         [MaxLength(2)]
-        public string UF { get; set; }        
+        public string UF { get; set; }
         [EmailAddress(ErrorMessage = "Entre com um e-mail válido")]
         [DataType(DataType.EmailAddress)]
+        [MaxLength(60)]
         public string Email { get; set; }
         public virtual ICollection<Telefone> Telefones { get; set; }
 

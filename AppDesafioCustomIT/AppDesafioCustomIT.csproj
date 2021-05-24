@@ -5,12 +5,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Home\**" />
+    <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="Views\Home\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210520111339_Inicial.cs" />
+    <Compile Remove="Migrations\20210520111339_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20210524131105_Initial.cs" />
+    <Compile Remove="Migrations\20210524131105_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20210524132444_Initial.cs" />
+    <Compile Remove="Migrations\20210524132444_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20210524132815_Initial.cs" />
+    <Compile Remove="Migrations\20210524132815_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20210524132935_Initial.cs" />
+    <Compile Remove="Migrations\20210524132935_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

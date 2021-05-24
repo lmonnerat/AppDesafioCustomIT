@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AppDesafioCustomIT.Data;
+using AppDesafioCustomIT.Models;
+using AppDesafioCustomIT.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AppDesafioCustomIT.Data;
-using AppDesafioCustomIT.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AppDesafioCustomIT.Controllers
 {
@@ -22,8 +21,11 @@ namespace AppDesafioCustomIT.Controllers
         // GET: Telefones
         public async Task<IActionResult> Index()
         {
-            var appDesafioCustomITContext = _context.Telefone.Include(t => t.Pessoa);
-            return View(await appDesafioCustomITContext.ToListAsync());
+            var telefones = await _context.Telefone.Include(t => t.Pessoa).OrderBy(t => t.PessoaId).ToListAsync();
+            var pessoas = from p in _context.Pessoa
+                          select p;
+            PessoaViewModel viewModel = new PessoaViewModel { Pessoas = pessoas.ToList(), Telefones = telefones };
+            return View(viewModel);
         }
 
         // GET: Telefones/Details/5
@@ -46,9 +48,18 @@ namespace AppDesafioCustomIT.Controllers
         }
 
         // GET: Telefones/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int? id)
         {
-            ViewData["PessoaId"] = new SelectList(_context.Set<Pessoa>(), "Id", "Id");
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var pessoa = await _context.Pessoa.FindAsync(id);
+            if (pessoa == null)
+            {
+                return NotFound();
+            }
+            ViewData["PessoaId"] = new SelectList(_context.Set<Pessoa>(), "Id", "Id", pessoa.Id);
             return View();
         }
 

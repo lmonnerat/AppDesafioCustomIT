@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AppDesafioCustomIT.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using AppDesafioCustomIT.Data;
 
 namespace AppDesafioCustomIT
 {
@@ -39,7 +35,7 @@ namespace AppDesafioCustomIT
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
 

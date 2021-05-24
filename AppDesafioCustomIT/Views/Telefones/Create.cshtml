@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Novo Telefone</h1>
 
 <h4>Telefone</h4>
 <hr />
@@ -14,24 +14,40 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NumTelefone" class="control-label"></label>
-                <input asp-for="NumTelefone" class="form-control" />
+                <input id="txtTelefone" asp-for="NumTelefone" class="form-control" />
                 <span asp-validation-for="NumTelefone" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="PessoaId" class="control-label"></label>
-                <select asp-for="PessoaId" class ="form-control" asp-items="ViewBag.PessoaId"></select>
+                <select asp-for="PessoaId" class="form-control" asp-items="ViewBag.PessoaId"></select>
+                <span asp-validation-for="PessoaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para listagem</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#txtTelefone').focusout(function () {
+                var telefone, element;
+                element = $(this);
+                element.unmask();
+                telefone = element.val().replace(/\D/g, '');
+                if (telefone.length > 10) {
+                    element.mask("(00) 00000-0000");
+                } else {
+                    element.mask("(00) 0000-00009");
+                }
+            }).trigger('focusout');
+        });
+    </script>
 }

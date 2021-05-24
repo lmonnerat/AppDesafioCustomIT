@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using AppDesafioCustomIT.Models;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AppDesafioCustomIT.Data
 {
     public class AppDesafioCustomITContext : DbContext
     {
-        public AppDesafioCustomITContext (DbContextOptions<AppDesafioCustomITContext> options)
+        public AppDesafioCustomITContext(DbContextOptions<AppDesafioCustomITContext> options)
             : base(options)
         {
         }

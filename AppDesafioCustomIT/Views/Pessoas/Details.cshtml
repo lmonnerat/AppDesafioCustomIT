@@ -63,6 +63,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
+        @await Html.PartialAsync("~/Views/Shared/_TelefonePartial.cshtml", Model.Telefones)
     </dl>
 </div>
 <div>

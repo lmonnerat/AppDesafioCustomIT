@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AppDesafioCustomIT.Data;
+using AppDesafioCustomIT.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AppDesafioCustomIT.Data;
-using AppDesafioCustomIT.Models;
-using AppDesafioCustomIT.Models.ViewModels;
-using System.Text.RegularExpressions;
 
 namespace AppDesafioCustomIT.Controllers
 {
@@ -55,7 +50,8 @@ namespace AppDesafioCustomIT.Controllers
             {
                 return NotFound();
             }
-
+            var telefones = await _context.Telefone.Where(t => t.PessoaId == pessoa.Id).ToListAsync();
+            pessoa.Telefones = telefones;
             return View(pessoa);
         }
 
@@ -74,14 +70,8 @@ namespace AppDesafioCustomIT.Controllers
         {
             if (ModelState.IsValid)
             {
-                pessoa.CPF = pessoa.CPF.Replace(".", "").Replace("-", "");                
+                pessoa.CPF = pessoa.CPF.Replace(".", "").Replace("-", "");
                 _context.Add(pessoa);
-                if (telefone.NumTelefone != null)
-                {
-                    telefone.NumTelefone = telefone.NumTelefone.Replace("(", "").Replace(")", "").Replace("-", "").Trim();
-                    telefone.Pessoa = pessoa;
-                    _context.Add(telefone);
-                }
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -102,9 +92,7 @@ namespace AppDesafioCustomIT.Controllers
             {
                 return NotFound();
             }
-            var telefone = await _context.Telefone.FirstOrDefaultAsync(t => t.PessoaId == pessoa.Id);
-            PessoaViewModel viewModel = new PessoaViewModel { Pessoa = pessoa, Telefone = telefone };
-            return View(viewModel);
+            return View(pessoa);
         }
 
         // POST: Pessoas/Edit/5
@@ -112,7 +100,7 @@ namespace AppDesafioCustomIT.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,DataNasc,CPF,Endereco,Bairro,UF,Cidade,Email")] Pessoa pessoa, Telefone telefone)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,DataNasc,CPF,Endereco,Bairro,UF,Cidade,Email")] Pessoa pessoa)
         {
             if (id != pessoa.Id)
             {
@@ -124,24 +112,8 @@ namespace AppDesafioCustomIT.Controllers
                 try
                 {
                     pessoa.CPF = pessoa.CPF.Replace(".", "").Replace("-", "");
-                    if (telefone.NumTelefone != null)
-                    {
-                        telefone.NumTelefone = telefone.NumTelefone.Replace("(", "").Replace(")", "").Replace("-", "").Trim();
-                    }
                     _context.Update(pessoa);
-                    bool hasAny = await _context.Telefone.AnyAsync(x => x.PessoaId == pessoa.Id);
-                    if (!hasAny)
-                    {                        
-                        telefone.Pessoa = pessoa;
-                        _context.Add(telefone);
-                    }
-                    else
-                    {
-                        var fone = await _context.Telefone.FirstOrDefaultAsync(t => t.PessoaId == pessoa.Id);
-                        fone.NumTelefone = telefone.NumTelefone;
-                        _context.Update(fone);
-                    }
-                    await _context.SaveChangesAsync();                    
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {

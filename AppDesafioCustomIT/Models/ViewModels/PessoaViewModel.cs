@@ -1,8 +1,10 @@
-﻿namespace AppDesafioCustomIT.Models.ViewModels
+﻿using System.Collections.Generic;
+
+namespace AppDesafioCustomIT.Models.ViewModels
 {
     public class PessoaViewModel
     {
-        public Pessoa Pessoa { get; set; }
-        public Telefone Telefone { get; set; }
+        public List<Pessoa> Pessoas { get; set; }
+        public List<Telefone> Telefones { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace AppDesafioCustomIT.Models
     {
         public int TelefoneId { get; set; }
         [Display(Name = "Telefone")]
+        [MaxLength(30)]
         public string NumTelefone { get; set; }
         public int PessoaId { get; set; }
         public virtual Pessoa Pessoa { get; set; }

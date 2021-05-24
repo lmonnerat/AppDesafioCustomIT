@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AppDesafioCustomIT.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,14 +13,14 @@ namespace AppDesafioCustomIT.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(maxLength: 60, nullable: false),
                     DataNasc = table.Column<DateTime>(nullable: false),
-                    CPF = table.Column<string>(nullable: true),
-                    Endereco = table.Column<string>(nullable: true),
-                    Bairro = table.Column<string>(nullable: true),
-                    UF = table.Column<string>(nullable: true),
-                    Cidade = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    CPF = table.Column<string>(maxLength: 20, nullable: false),
+                    Endereco = table.Column<string>(maxLength: 100, nullable: true),
+                    Bairro = table.Column<string>(maxLength: 60, nullable: true),
+                    Cidade = table.Column<string>(maxLength: 60, nullable: true),
+                    UF = table.Column<string>(maxLength: 2, nullable: true),
+                    Email = table.Column<string>(maxLength: 60, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace AppDesafioCustomIT.Migrations
                 {
                     TelefoneId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NumTelefone = table.Column<string>(nullable: true),
+                    NumTelefone = table.Column<string>(maxLength: 30, nullable: true),
                     PessoaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
